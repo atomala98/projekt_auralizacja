@@ -8,6 +8,7 @@ f = fdesign.octave(BandsPerOctave,'Class 1','N,F0',N,F0,Fs);
 
 
 F0 = validfrequencies(f);
+
 Nfc = length(F0);
 for i=1:Nfc,
     f.F0 = F0(i);

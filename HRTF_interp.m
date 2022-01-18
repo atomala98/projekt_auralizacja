@@ -1,4 +1,4 @@
-function [out, test] = HRTF_interp(HRTF_to_use, interp, HRTFs, signal)
+function out = HRTF_interp(HRTF_to_use, interp, HRTFs, signal)
 
 HRTF_arr_l = [];
 HRTF_arr_r = [];
@@ -19,7 +19,7 @@ HRTF_arr_interp_r = [];
 %HRTF_arr_l(1, :)
 
 for i = 1:size(HRTF_to_use, 2)-1
-    for j = 0:interp
+    for j = 0:interp-1
         HRTF_arr_interp_l = [HRTF_arr_interp_l; HRTF_arr_l(i, :)*abs(j - 5)/5 + HRTF_arr_l(i + 1, :)*j/5];
     end
 end
@@ -27,7 +27,7 @@ end
 %HRTF_arr_interp_l(1, :)
 
 for i = 1:size(HRTF_to_use, 2)-1
-    for j = 0:interp
+    for j = 0:interp-1
         HRTF_arr_interp_r = [HRTF_arr_interp_r; HRTF_arr_r(i, :)*abs(j - 5)/5 + HRTF_arr_r(i + 1, :)*j/5];
     end
 end

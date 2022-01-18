@@ -1,5 +1,7 @@
 % HRTFs for intrpolation
-interp_HRTF = [34, 35, 36, 37, 38, 39, 40, 100, 101, 102, 103, 104, 105, 106, 107, 108, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 271, 272, 273, 274, 275, 276, 277, 278, 279];
+%interp_HRTF = [34, 35, 36, 37, 38, 39, 40, 100, 101, 102, 103, 104, 105, 106, 107, 108, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 271, 272, 273, 274, 275, 276, 277, 278, 279];
+interp_HRTF = [313:332 261:279];
+
 
 % folder name
 
@@ -24,7 +26,7 @@ music = [mean(music, 2) mean(music, 2)];
 
 corridor = corridor / 3;
 
-music = music / 40;
+music = music / 25;
 
 phone = phone / 20;
 
@@ -56,11 +58,11 @@ load HRTF_new.mat;
 
 music_start = music(1:size(music, 1) * (3/4), :);
 
-music_end = music(size(music, 1) * (3/4):size(music, 1), :) / 2;
+music_end = music(size(music, 1) * (3/4):size(music, 1), :);
 
-music_start = static_HRTF(music_start, HRTFs{33, 3}, HRTFs{33, 4});
+music_start = static_HRTF(music_start, HRTFs{313, 3}, HRTFs{313, 4});
 
-[music_end, test] = HRTF_interp(interp_HRTF, 5, HRTFs, music_end);
+music_end = HRTF_interp(interp_HRTF, 2, HRTFs, music_end);
 
 music = [music_start; music_end];
 
@@ -132,4 +134,3 @@ fake_output = [fake_corridor(1:80000, :); fake_corridor(80000:(80000 + size(fake
 audiowrite(folder + "final-version.wav", output, Fs_pho);
 
 audiowrite(folder + "fake-final-version.wav", fake_output, Fs_pho);
-
